@@ -1,8 +1,8 @@
 CLASS lcx_error DEFINITION INHERITING FROM cx_static_check.
   PUBLIC SECTION.
     INTERFACES if_t100_message.
-    METHODS constructor IMPORTING iv_id    TYPE symsgid
-                                  iv_no    TYPE symsgno
+    METHODS constructor IMPORTING iv_id    TYPE symsgid   OPTIONAL
+                                  iv_no    TYPE symsgno   OPTIONAL
                                   iv_text1 TYPE csequence OPTIONAL
                                   iv_text2 TYPE csequence OPTIONAL
                                   iv_text3 TYPE csequence OPTIONAL
@@ -18,19 +18,32 @@ CLASS lcx_error DEFINITION INHERITING FROM cx_static_check.
 ENDCLASS.
 
 CLASS lcx_error IMPLEMENTATION.
-  METHOD constructor.
+
+   METHOD constructor.
+    " Конструктор
     super->constructor( ).
-    me->mv_text1 = iv_text1.
-    me->mv_text2 = iv_text2.
-    me->mv_text3 = iv_text3.
-    me->mv_text4 = iv_text4.
-    if_t100_message~t100key-msgid = iv_id.
-    if_t100_message~t100key-msgno = iv_no.
+    IF iv_id IS SUPPLIED.
+      me->mv_text1 = iv_text1.
+      me->mv_text2 = iv_text2.
+      me->mv_text3 = iv_text3.
+      me->mv_text4 = iv_text4.
+      if_t100_message~t100key-msgid = iv_id.
+      if_t100_message~t100key-msgno = iv_no.
+    ELSE.
+      me->mv_text1 = sy-msgv1.
+      me->mv_text2 = sy-msgv2.
+      me->mv_text3 = sy-msgv3.
+      me->mv_text4 = sy-msgv4.
+      if_t100_message~t100key-msgid = sy-msgid.
+      if_t100_message~t100key-msgno = sy-msgno.
+    ENDIF.
+
     if_t100_message~t100key-attr1 = 'MV_TEXT1'.
     if_t100_message~t100key-attr2 = 'MV_TEXT2'.
     if_t100_message~t100key-attr3 = 'MV_TEXT3'.
     if_t100_message~t100key-attr4 = 'MV_TEXT4'.
   ENDMETHOD.
+  
   METHOD get_bapiret2.
     " Вернуть ошибку в виде строки формата bapiret2
     rs_bapiret2-id     = if_t100_message~t100key-msgid.

@@ -11,6 +11,7 @@ CLASS lcl_xxx_viewer DEFINITION.
       constructor IMPORTING io_dc_contr TYPE REF TO lcl_card_dc_contr,
 
       control_init,
+      refresh,
       free,
 
       handle_toolbar FOR EVENT toolbar OF cl_gui_alv_grid
@@ -51,11 +52,24 @@ CLASS lcl_xxx_viewer IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD free.
-    CLEAR mo_dc_contr.
-    mo_grid->free( ).
-    mo_cont->free( ).
+    IF mo_grid IS NOT INITIAL.
+      mo_grid->free( ).
+    ENDIF.
+    IF mo_cont IS NOT INITIAL.
+      mo_cont->free( ).
+    ENDIF.
+
+    FREE mo_grid.
+    FREE mo_cont.
   ENDMETHOD.
 
+  METHOD refresh.
+    IF mo_grid IS INITIAL.
+      RETURN.
+    ENDIF.
+    mo_grid->refresh_table_display( ).
+  ENDMETHOD.
+  
   METHOD control_init.
     " Инициализация alv-grid для контрактов
     FIELD-SYMBOLS <ft_data> TYPE STANDARD TABLE.

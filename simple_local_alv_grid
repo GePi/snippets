@@ -1,4 +1,4 @@
-CLASS lcl_card_dc_contr_viewer DEFINITION.
+CLASS lcl_xxx_viewer DEFINITION.
   PUBLIC SECTION.
     CONSTANTS:
       BEGIN OF cs_grid_user_func,
@@ -44,10 +44,8 @@ CLASS lcl_card_dc_contr_viewer DEFINITION.
 
 ENDCLASS. 
 
-
-
-
-CLASS lcl_card_dc_contr_viewer IMPLEMENTATION.
+" РЕАЛИЗАЦИЯ
+CLASS lcl_xxx_viewer IMPLEMENTATION.
   METHOD constructor.
     mo_dc_contr = io_dc_contr.
   ENDMETHOD.

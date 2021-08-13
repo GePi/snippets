@@ -38,9 +38,9 @@ SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-001.
 PARAMETERS: p_object LIKE st_stxbitmaps-tdobject DEFAULT 'GRAPHICS'
                               MODIF ID abc ,
             p_name   LIKE st_stxbitmaps-tdname,
-            p_id     LIKE st_stxbitmaps-tdid DEFAULT 'BMAP'
+            p_id     LIKE st_stxbitmaps-tdid DEFAULT 'BMAP' 
                               MODIF ID abc ,
-            p_type   LIKE st_stxbitmaps-tdbtype.
+            p_type   LIKE st_stxbitmaps-tdbtype. "(тип изображения BMON - черно/белое , BCOL - цветное )
 SELECTION-SCREEN END OF BLOCK b1.
 
 PARAMETERS: p_dir    TYPE localfile DEFAULT 'D:\GIS'.
@@ -91,7 +91,7 @@ START-OF-SELECTION.
         p_object       = st_stxbitmaps-tdobject
         p_name         = st_stxbitmaps-tdname
         p_id           = st_stxbitmaps-tdid
-        p_btype        = st_stxbitmaps-tdbtype
+        p_btype        = st_stxbitmaps-tdbtype "(тип изображения BMON - черно/белое , BCOL - цветное )
       RECEIVING
         p_bmp          = v_graphic_xstr
       EXCEPTIONS

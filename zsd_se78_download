@@ -1,0 +1,270 @@
+REPORT zsd_se78_download.
+
+***********************************************************************
+* Variable declaration
+***********************************************************************
+DATA: v_graphic_size TYPE i,
+      v_graphic_xstr TYPE xstring,
+      v_graphic_conv TYPE i,
+      v_graphic_offs TYPE i,
+      v_file         TYPE string.
+***********************************************************************
+* Table declaration
+***********************************************************************
+DATA: BEGIN OF i_graphic_table OCCURS 0,
+        line(255) TYPE x,
+      END OF i_graphic_table.
+
+DATA: lt_tline TYPE TABLE OF tline WITH HEADER LINE.
+DATA: l_thead TYPE thead.
+
+***********************************************************************
+* Structure declaration
+***********************************************************************
+DATA: st_stxbitmaps       TYPE stxbitmaps.
+***********************************************************************
+* Selection screen
+***********************************************************************
+PARAMETERS: p_so10 RADIOBUTTON GROUP rb1.
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE text-002.
+PARAMETERS: p_tdid   LIKE thead-tdid DEFAULT 'ADRS',
+            p_tdname LIKE thead-tdname,
+            p_tdobj  LIKE thead-tdobject DEFAULT 'TEXT',
+            p_tdspra LIKE thead-tdspras DEFAULT 'EN'.
+SELECTION-SCREEN END OF BLOCK b2.
+
+PARAMETERS: p_se78 RADIOBUTTON GROUP rb1.
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-001.
+PARAMETERS: p_object LIKE st_stxbitmaps-tdobject DEFAULT 'GRAPHICS'
+                              MODIF ID abc ,
+            p_name   LIKE st_stxbitmaps-tdname,
+            p_id     LIKE st_stxbitmaps-tdid DEFAULT 'BMAP'
+                              MODIF ID abc ,
+            p_type   LIKE st_stxbitmaps-tdbtype.
+SELECTION-SCREEN END OF BLOCK b1.
+
+PARAMETERS: p_dir    TYPE localfile DEFAULT 'D:\GIS'.
+***********************************************************************
+* At Selection-screen output event
+***********************************************************************
+AT SELECTION-SCREEN OUTPUT.
+  LOOP AT SCREEN.
+    IF screen-group1 = 'ABC' .
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+  ENDLOOP.
+***********************************************************************
+* At Selection-screen on value-request event
+***********************************************************************
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_dir.
+  DATA: l_folder TYPE string.
+  CALL METHOD cl_gui_frontend_services=>directory_browse
+    EXPORTING
+      window_title         = 'Select Folder'
+      initial_folder       = 'C:\'
+    CHANGING
+      selected_folder      = l_folder
+    EXCEPTIONS
+      cntl_error           = 1
+      error_no_gui         = 2
+      not_supported_by_gui = 3
+      OTHERS               = 4.
+  IF sy-subrc = 0.
+    p_dir = l_folder.
+  ENDIF.
+***********************************************************************
+* Start-of-selection event
+***********************************************************************
+START-OF-SELECTION.
+
+  IF p_se78 = 'X'.
+
+
+    st_stxbitmaps-tdobject = p_object.
+    st_stxbitmaps-tdname = p_name.
+    st_stxbitmaps-tdid = p_id.
+    st_stxbitmaps-tdbtype = p_type.
+*   Get the bmp image from BDS in hex string format
+    CALL METHOD cl_ssf_xsf_utilities=>get_bds_graphic_as_bmp
+      EXPORTING
+        p_object       = st_stxbitmaps-tdobject
+        p_name         = st_stxbitmaps-tdname
+        p_id           = st_stxbitmaps-tdid
+        p_btype        = st_stxbitmaps-tdbtype
+      RECEIVING
+        p_bmp          = v_graphic_xstr
+      EXCEPTIONS
+        not_found      = 1
+        internal_error = 2
+        OTHERS         = 3.
+    IF sy-subrc = 0.
+*     Find the length of hex string
+      v_graphic_size = xstrlen( v_graphic_xstr ).
+      CHECK v_graphic_size > 0.
+      v_graphic_conv = v_graphic_size.
+      v_graphic_offs = 0.
+*     Populate internal table from this hex string
+      WHILE v_graphic_conv > 255.
+        i_graphic_table-line = v_graphic_xstr+v_graphic_offs(255).
+        APPEND i_graphic_table.
+        v_graphic_offs = v_graphic_offs + 255.
+        v_graphic_conv = v_graphic_conv - 255.
+      ENDWHILE.
+      i_graphic_table-line = v_graphic_xstr+v_graphic_offs(v_graphic_conv).
+      APPEND i_graphic_table.
+*     Prepare file name and file path
+      CONCATENATE p_dir '\' p_name '.BMP' INTO v_file.
+*     Download image
+      CALL FUNCTION 'GUI_DOWNLOAD'
+        EXPORTING
+          bin_filesize            = v_graphic_size
+          filename                = v_file
+          filetype                = 'BIN'
+        TABLES
+          data_tab                = i_graphic_table
+        EXCEPTIONS
+          file_write_error        = 1
+          no_batch                = 2
+          gui_refuse_filetransfer = 3
+          invalid_type            = 4
+          no_authority            = 5
+          unknown_error           = 6
+          header_not_allowed      = 7
+          separator_not_allowed   = 8
+          filesize_not_allowed    = 9
+          header_too_long         = 10
+          dp_error_create         = 11
+          dp_error_send           = 12
+          dp_error_write          = 13
+          unknown_dp_error        = 14
+          access_denied           = 15
+          dp_out_of_memory        = 16
+          disk_full               = 17
+          dp_timeout              = 18
+          file_not_found          = 19
+          dataprovider_exception  = 20
+          control_flush_error     = 21
+          OTHERS                  = 22.
+      IF sy-subrc = 0.
+        WRITE: 'File downloaded successfully'(003), v_file.
+      ELSE.
+        WRITE: 'Error during file download'(004).
+      ENDIF.
+    ELSE.
+      CASE sy-subrc.
+        WHEN 1.
+          WRITE: 'Image not found'(005).
+        WHEN OTHERS.
+          WRITE: 'Error in Image retrieval'(006).
+      ENDCASE.
+    ENDIF.
+
+  ENDIF. "IF P_SE78 = 'X'.
+
+
+
+  IF p_so10 = 'X'.
+
+    CALL FUNCTION 'READ_TEXT'
+      EXPORTING
+*       CLIENT                  = SY-MANDT
+        id                      = p_tdid
+        language                = p_tdspra
+        name                    = p_tdname
+        object                  = p_tdobj
+*       ARCHIVE_HANDLE          = 0
+*       LOCAL_CAT               = ' '
+      IMPORTING
+        header                  = l_thead
+      TABLES
+        lines                   = lt_tline
+      EXCEPTIONS
+        id                      = 1
+        language                = 2
+        name                    = 3
+        not_found               = 4
+        object                  = 5
+        reference_check         = 6
+        wrong_access_to_archive = 7
+        OTHERS                  = 8.
+    IF sy-subrc <> 0.
+      WRITE: 'Image not found'(005).
+    ENDIF.
+
+    CALL FUNCTION 'SAPSCRIPT_CONVERT_BITMAP'
+      EXPORTING
+        itf_header               = l_thead
+        old_format               = 'ITF'
+        new_format               = 'BMP'
+        bitmap_file_bytecount_in = 0
+        itf_bitmap_type_in       = '*'
+      IMPORTING
+        bitmap_file_bytecount    = v_graphic_size
+*       ITF_BITMAP_TYPE_OUT      =
+      TABLES
+        itf_lines                = lt_tline
+        bitmap_file              = i_graphic_table
+*       BDS_BITMAP_FILE          =
+      EXCEPTIONS
+        no_bitmap_file           = 1
+        format_not_supported     = 2
+        bitmap_file_not_type_x   = 3
+        no_bmp_file              = 4
+        bmperr_invalid_format    = 5
+        bmperr_no_colortable     = 6
+        bmperr_unsup_compression = 7
+        bmperr_corrupt_rle_data  = 8
+        bmperr_eof               = 9
+        bdserr_invalid_format    = 10
+        bdserr_eof               = 11
+        OTHERS                   = 12.
+    IF sy-subrc <> 0.
+      WRITE: 'Error in Image Format'(006).
+    ENDIF.
+
+
+
+    IF sy-subrc = 0.
+
+      CONCATENATE p_dir '\' p_tdname '.BMP' INTO v_file.
+*     Download image
+      CALL FUNCTION 'GUI_DOWNLOAD'
+        EXPORTING
+          bin_filesize            = v_graphic_size
+          filename                = v_file
+          filetype                = 'BIN'
+        TABLES
+          data_tab                = i_graphic_table
+        EXCEPTIONS
+          file_write_error        = 1
+          no_batch                = 2
+          gui_refuse_filetransfer = 3
+          invalid_type            = 4
+          no_authority            = 5
+          unknown_error           = 6
+          header_not_allowed      = 7
+          separator_not_allowed   = 8
+          filesize_not_allowed    = 9
+          header_too_long         = 10
+          dp_error_create         = 11
+          dp_error_send           = 12
+          dp_error_write          = 13
+          unknown_dp_error        = 14
+          access_denied           = 15
+          dp_out_of_memory        = 16
+          disk_full               = 17
+          dp_timeout              = 18
+          file_not_found          = 19
+          dataprovider_exception  = 20
+          control_flush_error     = 21
+          OTHERS                  = 22.
+      IF sy-subrc = 0.
+        WRITE: 'File downloaded successfully'(003), v_file.
+      ELSE.
+        WRITE: 'Error during file download'(004).
+      ENDIF.
+
+    ENDIF.
+
+  ENDIF.

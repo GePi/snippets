@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+    <LANGU>R</LANGU>
+    <DESCRIPT>Карточка ГКМ: печатная форма взаимозачета</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <MSG_ID>ZFM_CM_GCM</MSG_ID>
+   </VSEOCLASS>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>Печатная форма взаимозачета.pdf</ENTRY>
+     <LENGTH>31</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>Печатная форма взаимозачета</ENTRY>
+     <LENGTH>27</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>003</KEY>
+     <ENTRY>Карточка ГКМ</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>005</KEY>
+     <ENTRY>PDF</ENTRY>
+     <LENGTH>3</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>006</KEY>
+     <ENTRY>Соглашение о взаимозачёте</ENTRY>
+     <LENGTH>25</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>007</KEY>
+     <ENTRY>Название ВЛ</ENTRY>
+     <LENGTH>11</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>008</KEY>
+     <ENTRY>Заявление о взаимозачёте</ENTRY>
+     <LENGTH>24</LENGTH>
+    </item>
+   </TPOOL>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CREATE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Создать карточку GCM</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CREATE_BOR_LINK</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Прикрепить карточку GCM к CASE</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CREATE_LINK_BOR2GCM</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Прикрепить карточку GCM к CASE</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_BOR_TYPE_ZCA_GCMREC</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Тип объекта</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_CASE_CATEGORY_MS01</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Категория</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_CASE_CATEGORY_MS02</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Категория</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_GCM_DOCTYPE_MS01</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Тип документа для ЭЦП</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_GCM_DOCTYPE_MS02</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Тип документа для ЭЦП</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_RMS_ID_ZCNTR_AREA</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>RMS ID</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>CV_SPS_ID_GCMREC_AGR</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>SPS ID</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>DEL_GCM_AND_CLEARING_BOR_LINK</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Удалить BOR привязку (и ВСЕ карточки ГКМ по типу)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>MO_ACT_VZ_FORM</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Формуляр взаимозачета</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_CONTRACT</CLSNAME>
+     <CMPNAME>REFRESH_CASE_INTERFACE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Обновить экранные элементы отображения CASE</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

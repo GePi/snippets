@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+    <LANGU>R</LANGU>
+    <DESCRIPT>Карточка GCM - Базовый класс</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <MSG_ID>ZFM_CM_GCM</MSG_ID>
+   </VSEOCLASS>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>ЗНП.pdf</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+   </TPOOL>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>ATTACH</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Прикрепление контента</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>ATTACH_GCM</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Присвоение GCM карточки к карточке ЗНП</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>BUILDPDF</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Сформировать PDF формуляр</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>CC_PRCTR_100</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>МВП по умолчанию</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>CREATE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Создание карточки</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>DISPLAY_GCMCONTENT</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Просмотр содержимого GCM карточки</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>FILLDATA</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Подготовка данных для формирования карточки</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>GETATTRIBUTES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Получение аттрибутов</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>GET_ATTRIBUT</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Получение аттрибута</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>GET_GCM_RECORD_ID</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Получить ИД созданной карточки ГКМ</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MC_BUKRS</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Балансовая единица</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MO_CASE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Case Interface</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MO_CASE_WIN</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Case: Frontend (SAP GUI)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MS_BO</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Отношение объекта - сервис: ид. объекта РБО</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MS_RECORD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Карточка документа (заголовок)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MT_ATTRVAL</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Таблица значений атрибутов документа</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>MT_CONTENTS</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Двоичная таблица</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>OPENCASE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Открыть карточку</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>SEND</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Отправка карточки в хранилище</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FM_VZ_GCM_BASE</CLSNAME>
+     <CMPNAME>SETATTRIBUTES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Установка аттрибутов</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

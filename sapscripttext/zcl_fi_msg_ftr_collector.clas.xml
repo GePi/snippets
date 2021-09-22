@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_FI_MSG_FTR_COLLECTOR</CLSNAME>
+    <LANGU>R</LANGU>
+    <DESCRIPT>Сборщик сообщений в колл. сообщ. FTR* транзакций</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_MSG_FTR_COLLECTOR</CLSNAME>
+     <CMPNAME>MO_TRTM_PROXY_MESSAGE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Proxy for Message Handler for Transaction Management</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+    <LANGU>R</LANGU>
+    <DESCRIPT>Длинный текст. Представление на экране</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>EDIT_TEXT</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Редактировать текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>GET_TO_TEXT_FEILD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Получить значение из начала текста для экранного поля</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>IS_EMPTY</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Заполнен ли текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>LOAD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Загрузить текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>MS_HEADER</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>SAPscript: колонтитул</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>MT_LINES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Строки текста (текст полностью в формате SAPscript)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>MV_FL_CHANGED</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Флаг: текст изменялся</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>MV_LENGTH_SCR_FIELD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Длинна экранного поля с началом длинного текста</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>MV_SCR_FIELD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Начало длинного текста (видимое в экранном поле)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>SAVE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Сохранить текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>SAVE_CHANGED_TEXT</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Сохранить текст, если он изменялся</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>SET_FROM_TEXT_FIELD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Установить значение из экранного поля</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_FI_LONG_TEXT_ONSCREEN</CLSNAME>
+     <CMPNAME>SET_TDNAME</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Установить имя текста (поле ms_header-tdname)</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

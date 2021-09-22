@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+    <LANGU>R</LANGU>
+    <DESCRIPT>Сервис длинных текстов</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>DELETE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Удалить длинный текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>LINES_TO_PLAIN</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать длинный текст в текст без форматирования</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>LINES_TO_STRING</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать длинный текст в строку</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>LOAD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Загрузить длинный текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>MC_PLAIN_TEXT_LENGTH</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Длина текста без формата</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>PLAIN_TO_LINES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать текст без форматирования в длинный текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>PLAIN_TO_STRING</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать текст без форматирования в строку</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>SAVE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Сохранить длинный текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>STRING_TABLE_TO_LINES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать таблицу строк в длинный текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>STRING_TO_LINES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать строку в длинный текст</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>STRING_TO_PLAIN</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Преобразовать строку в текст без форматирования</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>TS_PLAIN</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Строка текста без форматирования</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_A4_LONG_TEXT_SERVICE</CLSNAME>
+     <CMPNAME>TT_PLAIN</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Текст без форматирования</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

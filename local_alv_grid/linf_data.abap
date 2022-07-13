@@ -6,7 +6,7 @@ CLASS lcl_data DEFINITION ABSTRACT.
   PUBLIC SECTION.
     INTERFACES linf_data ALL METHODS ABSTRACT.
 
-    CONSTANTS mc_aufk_auart_cspe TYPE aufk-auart VALUE 'CSPE'.
+    CONSTANTS ...
     DATA mo_param TYPE REF TO lcl_param READ-ONLY.
 ENDCLASS.                    "lcl_data DEFINITION
 

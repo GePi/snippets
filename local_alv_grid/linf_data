@@ -18,15 +18,9 @@ CLASS lcl_data1 DEFINITION FINAL INHERITING FROM lcl_data.
              END OF ts_data,
       tt_data TYPE STANDARD TABLE OF ts_data WITH DEFAULT KEY.
 
-    METHODS constructor IMPORTING io_param TYPE REF TO lcl_param.
-    METHODS select.
     METHODS linf_data~get_ref_data REDEFINITION.
 
     DATA mt_data TYPE tt_data.
-
-  PRIVATE SECTION.
-    METHODS select_add CHANGING ct_data TYPE tt_data.
-    METHODS delete_storno_mseg CHANGING ct_data TYPE tt_data.
 ENDCLASS.                    "lcl_data1 DEFINITION
 
   METHOD linf_data~get_ref_data.

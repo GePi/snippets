@@ -1,3 +1,11 @@
 INTERFACE linf_data.
   METHODS get_ref_data RETURNING value(rd_data) TYPE REF TO data.
 ENDINTERFACE.                    "lcl_param DEFINITION
+
+CLASS lcl_data DEFINITION ABSTRACT.
+  PUBLIC SECTION.
+    INTERFACES linf_data ALL METHODS ABSTRACT.
+
+    CONSTANTS mc_aufk_auart_cspe TYPE aufk-auart VALUE 'CSPE'.
+    DATA mo_param TYPE REF TO lcl_param READ-ONLY.
+ENDCLASS.                    "lcl_data DEFINITION

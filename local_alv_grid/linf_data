@@ -1,0 +1,3 @@
+INTERFACE linf_data.
+  METHODS get_ref_data RETURNING value(rd_data) TYPE REF TO data.
+ENDINTERFACE.                    "lcl_param DEFINITION

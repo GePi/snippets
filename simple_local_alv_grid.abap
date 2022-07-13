@@ -1,55 +1,59 @@
-CLASS lcl_xxx_viewer DEFINITION.
-  PUBLIC SECTION.
-    CONSTANTS:
-      BEGIN OF cs_grid_user_func,
-        " добавить
-        addcontr TYPE ui_func VALUE 'ADDCONTR',
-        " удалить
-        delcontr TYPE ui_func VALUE 'DELCONTR',
-      END OF cs_grid_user_func.
-    METHODS:
-      constructor IMPORTING io_dc_contr TYPE REF TO lcl_card_dc_contr,
+CLASS lcl_alv_viewer DEFINITION ABSTRACT.
+   PUBLIC SECTION.
+     CONSTANTS:
+       BEGIN OF cs_ui_func,
+         download_to_excel TYPE ui_func VALUE 'EXCEL',
+         download_to_xml TYPE ui_func VALUE 'XML',
+       END OF cs_ui_func.
 
-      control_init,
-      refresh,
-      free,
+     METHODS:
+       constructor IMPORTING io_controller TYPE REF TO linf_data,
 
-      handle_toolbar FOR EVENT toolbar OF cl_gui_alv_grid
-        IMPORTING e_object e_interactive,
-      handle_user_command
-                    FOR EVENT user_command OF cl_gui_alv_grid
-        IMPORTING e_ucomm.
+       control_init,
+       refresh,
+       free,
 
-  PRIVATE SECTION.
-    METHODS:
-      fill_fcat RETURNING VALUE(rt_fcat) TYPE lvc_t_fcat,
-      fill_variant RETURNING VALUE(rs_var) TYPE disvariant,
-      fill_layout RETURNING VALUE(rs_layout) TYPE lvc_s_layo,
-      fill_fcode_excl RETURNING VALUE(rt_excl) TYPE ui_functions,
-      fill_mode_save RETURNING VALUE(rv_mode_save) TYPE char01,
+       handle_toolbar ABSTRACT FOR EVENT toolbar OF cl_gui_alv_grid
+         IMPORTING e_object e_interactive,
+       handle_user_command ABSTRACT
+                     FOR EVENT user_command OF cl_gui_alv_grid
+         IMPORTING e_ucomm,
+       handle_double_click ABSTRACT
+                     FOR EVENT double_click OF cl_gui_alv_grid
+         IMPORTING e_row e_column.
+     METHODS:
+       sort_data,
+       fill_fcat RETURNING value(rt_fcat) TYPE lvc_t_fcat,
+       fcat_copy_text_from_field
+         IMPORTING iv_fieldname TYPE fieldname
+                   it_fcat TYPE lvc_t_fcat
+         CHANGING  cs_fcat TYPE lvc_s_fcat,
+       fill_variant RETURNING value(rs_var) TYPE disvariant,
+       fill_layout RETURNING value(rs_layout) TYPE lvc_s_layo,
+       fill_fcode_excl RETURNING value(rt_excl) TYPE ui_functions,
+       fill_mode_save RETURNING value(rv_mode_save) TYPE char01,
 
-      set_grid_events,
+       set_grid_events,
 
-      get_lvc_t_fcat_4_itab
-        IMPORTING it_table       TYPE STANDARD TABLE
-        RETURNING VALUE(rt_fcat) TYPE lvc_t_fcat.
+       get_lvc_t_fcat_4_itab
+         IMPORTING it_table       TYPE STANDARD TABLE
+         RETURNING value(rt_fcat) TYPE lvc_t_fcat.
 
-    DATA:
-      mo_dc_contr TYPE REF TO lcl_card_dc_contr.
+     DATA:
+       mo_controller TYPE REF TO linf_data.
 
-    DATA mo_cont TYPE REF TO cl_gui_custom_container.
-    DATA mo_grid TYPE REF TO cl_gui_alv_grid.
+     DATA mo_cont TYPE REF TO cl_gui_custom_container.
+     DATA mo_docking TYPE REF TO cl_gui_docking_container.
+     DATA mo_grid TYPE REF TO cl_gui_alv_grid.
 
-    DATA mv_cont_name TYPE fieldname VALUE 'CC_CONTRACTS'.
-    DATA md_data_table TYPE REF TO data.
-
-ENDCLASS. 
-
-" РЕАЛИЗАЦИЯ
-CLASS lcl_xxx_viewer IMPLEMENTATION.
+     DATA md_data_table TYPE REF TO data.
+ ENDCLASS.                    "lcl_xxx_viewer DEFINITION
+ 
+ 
+ CLASS lcl_alv_viewer IMPLEMENTATION.
   METHOD constructor.
-    mo_dc_contr = io_dc_contr.
-  ENDMETHOD.
+    mo_controller = io_controller.
+  ENDMETHOD.                    "constructor
 
   METHOD free.
     IF mo_grid IS NOT INITIAL.
@@ -61,17 +65,25 @@ CLASS lcl_xxx_viewer IMPLEMENTATION.
 
     FREE mo_grid.
     FREE mo_cont.
-  ENDMETHOD.
+  ENDMETHOD.                    "free
 
   METHOD refresh.
     IF mo_grid IS INITIAL.
       RETURN.
     ENDIF.
     mo_grid->refresh_table_display( ).
-  ENDMETHOD.
-  
+  ENDMETHOD.                    "refresh
+
   METHOD control_init.
-    " Инициализация alv-grid для контрактов
+    " Инициализация alv-grid
+    DATA lv_style TYPE i.
+    DATA:
+      lt_fcat TYPE lvc_t_fcat,
+      ls_variant TYPE disvariant,
+      ls_layout TYPE lvc_s_layo,
+      lt_fcode_excl TYPE ui_functions,
+      lv_mode_save TYPE char01.
+
     FIELD-SYMBOLS <ft_data> TYPE STANDARD TABLE.
 
     IF mo_grid IS NOT INITIAL.
@@ -79,21 +91,29 @@ CLASS lcl_xxx_viewer IMPLEMENTATION.
       RETURN.
     ENDIF.
 
-    CREATE OBJECT mo_cont
+    lv_style = cl_gui_control=>ws_child + cl_gui_control=>ws_visible.
+
+    CREATE OBJECT mo_docking
       EXPORTING
-        container_name = mv_cont_name.
+        repid     = sy-repid
+        dynnr     = sy-dynnr
+        extension = cl_gui_docking_container=>ws_maximizebox
+        style     = lv_style.
 
     CREATE OBJECT mo_grid
       EXPORTING
-        i_parent = mo_cont.
+        i_parent = mo_docking.
 
-    md_data_table = mo_dc_contr->get_ref_to_data( ).
+    md_data_table = mo_controller->get_ref_data( ).
     ASSIGN md_data_table->* TO <ft_data>.
-    DATA(lt_fcat) = fill_fcat( ).
-    DATA(ls_variant) = fill_variant( ).
-    DATA(ls_layout) = fill_layout( ).
-    DATA(lt_fcode_excl) = fill_fcode_excl( ).
-    DATA(lv_mode_save)  = fill_mode_save( ).
+
+    sort_data( ).
+
+    lt_fcat = fill_fcat( ).
+    ls_variant = fill_variant( ).
+    ls_layout = fill_layout( ).
+    lt_fcode_excl = fill_fcode_excl( ).
+    lv_mode_save = fill_mode_save( ).
 
     set_grid_events( ).
 
@@ -116,85 +136,57 @@ CLASS lcl_xxx_viewer IMPLEMENTATION.
               WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
       RETURN.
     ENDIF.
-  ENDMETHOD.
+  ENDMETHOD.                    "control_init
+
+  METHOD sort_data.
+    " Сортировка данных перед выводом (сортируется сама таблица данных в памяти)
+  ENDMETHOD.                    "sort_data
 
   METHOD fill_fcat.
     FIELD-SYMBOLS <ft_tab> TYPE STANDARD TABLE.
     ASSIGN md_data_table->* TO <ft_tab>.
     rt_fcat = get_lvc_t_fcat_4_itab( <ft_tab> ).
+  ENDMETHOD.                    "fill_fcat
 
-    LOOP AT rt_fcat ASSIGNING FIELD-SYMBOL(<fs_fcat>).
-      CASE <fs_fcat>-fieldname .
-        WHEN 'NUM'. " Номер договора
-          <fs_fcat>-scrtext_s = text-z01.
-          <fs_fcat>-scrtext_m = text-z02.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z03.
-        WHEN 'DAT'. " Дата
-          <fs_fcat>-scrtext_s = text-z04.
-          <fs_fcat>-scrtext_m = text-z05.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z06.
-        WHEN 'TYP_TXT'. " Тип
-          <fs_fcat>-scrtext_s = text-z07.
-          <fs_fcat>-scrtext_m = text-z08.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z09.
-        WHEN 'DESCR'. " Наименование
-          <fs_fcat>-scrtext_s = text-z10.
-          <fs_fcat>-scrtext_m = text-z11.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z12.
-        WHEN 'STAT_TXT'. " Статус
-          <fs_fcat>-scrtext_s = text-z13.
-          <fs_fcat>-scrtext_m = text-z14.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z15.
-        WHEN 'CREDITOR_TXT'. " Потребитель
-          <fs_fcat>-scrtext_s = text-z16.
-          <fs_fcat>-scrtext_m = text-z17.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z18.
-        WHEN 'DEBTOR_TXT'. " Поставщик
-          <fs_fcat>-scrtext_s = text-z19.
-          <fs_fcat>-scrtext_m = text-z20.
-          <fs_fcat>-scrtext_l = <fs_fcat>-coltext = text-z21.
+  METHOD fcat_copy_text_from_field.
+    FIELD-SYMBOLS <fs_fcat> LIKE LINE OF it_fcat.
+    READ TABLE it_fcat ASSIGNING <fs_fcat>
+      WITH KEY fieldname = iv_fieldname.
+    IF sy-subrc <> 0.
+      RETURN.
+    ENDIF.
 
-        WHEN OTHERS.
-          <fs_fcat>-tech = abap_true.
-      ENDCASE.
-    ENDLOOP.
-  ENDMETHOD.
+    cs_fcat-scrtext_s = <fs_fcat>-scrtext_s.
+    cs_fcat-scrtext_m = <fs_fcat>-scrtext_m.
+    cs_fcat-scrtext_l = cs_fcat-coltext = <fs_fcat>-scrtext_l.
+  ENDMETHOD.                    "fcat_copy_text_from_field
 
   METHOD fill_variant.
     rs_var-report = sy-repid.
     rs_var-username = sy-uname.
-  ENDMETHOD.
+  ENDMETHOD.                    "fill_variant
 
   METHOD fill_layout.
     rs_layout-cwidth_opt = abap_true.
-  ENDMETHOD.
+  ENDMETHOD.                    "fill_layout
 
   METHOD fill_fcode_excl.
-    " исчезнуть кнопку с вариантами
-    APPEND cl_gui_alv_grid=>mc_fc_maintain_variant TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_fc_variant_admin TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_fc_current_variant TO rt_excl.
     APPEND cl_gui_alv_grid=>mc_fc_info TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_fc_find TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_fc_find_more TO rt_excl.
     APPEND cl_gui_alv_grid=>mc_fc_print TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_fc_subtot TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_fc_sum TO rt_excl.
-    APPEND cl_gui_alv_grid=>mc_mb_sum TO rt_excl.
-
     APPEND cl_gui_alv_grid=>mc_fc_graph TO rt_excl.
     APPEND cl_gui_alv_grid=>mc_fc_detail TO rt_excl.
     APPEND cl_gui_alv_grid=>mc_fc_views TO rt_excl.
-  ENDMETHOD.
+  ENDMETHOD.                    "fill_fcode_excl
 
   METHOD fill_mode_save.
-    rv_mode_save = space.
-  ENDMETHOD.
+    rv_mode_save = 'A'.
+  ENDMETHOD.                    "fill_mode_save
 
   METHOD set_grid_events.
     SET HANDLER handle_toolbar      FOR mo_grid.
     SET HANDLER handle_user_command FOR mo_grid.
-  ENDMETHOD.
+    SET HANDLER handle_double_click FOR mo_grid.
+  ENDMETHOD.                    "set_grid_events
 
   METHOD get_lvc_t_fcat_4_itab.
     DATA:
@@ -215,7 +207,7 @@ CLASS lcl_xxx_viewer IMPLEMENTATION.
             r_salv_table = lo_salv_table
           CHANGING
             t_table      = <ft_table> ).
-      CATCH cx_salv_msg.                                "#EC NO_HANDLER
+      CATCH cx_salv_msg.
     ENDTRY.
 
     lo_columns  = lo_salv_table->get_columns( ).
@@ -226,24 +218,6 @@ CLASS lcl_xxx_viewer IMPLEMENTATION.
         r_columns             = lo_columns
         r_aggregations        = lo_aggregations ).
 
-  ENDMETHOD.
+  ENDMETHOD.                    "get_lvc_t_fcat_4_itab
 
-  METHOD handle_toolbar.
-    INSERT:
-      VALUE #( function = cs_grid_user_func-addcontr
-               icon = icon_create
-               quickinfo = 'Добавить договор'(t10)
-               text = '' ) INTO e_object->mt_toolbar INDEX 1,
-      VALUE #( function = cs_grid_user_func-delcontr
-               icon = icon_delete
-               quickinfo = 'Удалить договор'(t11)
-               text = '' ) INTO e_object->mt_toolbar INDEX 2.
-  ENDMETHOD.
-
-  METHOD handle_user_command.
-    CASE e_ucomm.
-      WHEN cs_grid_user_func-addcontr.
-      WHEN cs_grid_user_func-delcontr.
-    ENDCASE.
-  ENDMETHOD.
-ENDCLASS. 
+ENDCLASS.                    "lcl_xxx_viewer IMPLEMENTATION
